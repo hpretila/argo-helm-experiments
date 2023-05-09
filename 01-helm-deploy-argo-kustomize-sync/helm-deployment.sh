@@ -4,7 +4,7 @@
 git clone https://github.com/example/super-repo.git
 
 # Change to the cloned repository directory
-cd repos-list
+cd super-repo
 
 # Check if repos.txt file exists
 if [ ! -f "repos.txt" ]; then
@@ -32,8 +32,8 @@ while IFS=' ' read -r repo tag deployment_name; do
   # Go to the chart directory
   cd "$chart_dir"
 
-  # Install the chart with the specified deployment name
-  helm install "$deployment_name" .
+  # Install the chart with the specified deployment name and values file
+  helm install "$deployment_name" . --values "../values/${deployment_name}.yaml"
 
   # Go back to the script's initial directory and remove the cloned repo
   cd ../..
@@ -41,6 +41,6 @@ while IFS=' ' read -r repo tag deployment_name; do
 
 done < repos.txt
 
-# Go back to the script's initial directory and remove the repos-list directory
+# Go back to the script's initial directory and remove the super-repo directory
 cd ..
-rm -rf repos-list
+rm -rf super-repo
